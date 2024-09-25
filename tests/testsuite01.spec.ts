@@ -1,6 +1,6 @@
 import { test, expect, request } from '@playwright/test';
 import { APIHelper } from './APIHelpers';
-import { generateNewRoom } from './testData';
+import { generateNewRoom, generateNewClient, generateNewBill } from './testData';
 import dotenv from 'dotenv';
 require('dotenv').config();
 dotenv.config();
@@ -56,29 +56,6 @@ test.describe('Test suite backend V2', () => {
     };
     
   });
-//   Test case 01 - Log in
-test('Test case 01 - Log in to testers hotel', async ({ request }) => {
-  const clientsResponse = await request.get(`${BASE_URL}/api/clients`, {
-    headers: xUserAuth
-  });
-});
-  
-//   // Hämta och verifiera svaret
-//   //const responseBody = await response.json();
-//   //expect(responseBody).toHaveProperty('token'); // Kontrollera att token finns i svaret
-//   //expect(responseBody).toHaveProperty('username', loginCredentials.username); // Kontrollera att rätt användarnamn returneras
-
-//   // Valfritt: Använd token för att göra en annan begäran
-//   // console.log(xUserAuth);
-//   // const clientsResponse = await request.get(`${process.env.BASE_URL}/api/clients`, {
-//   //   headers: xUserAuth
-//   // });
-
-//   // Kontrollera statuskod för clients-respons
-//   expect(clientsResponse.status()).toBe(200);
-//   const clientsBody = await clientsResponse.json();
-//   expect(Array.isArray(clientsBody)).toBe(true); // Kontrollera att svaret är en array
-// });
   
 // Test case 01 - create room - post
 test('Test case 01 - Create room', async ({ request }) => {
@@ -100,22 +77,118 @@ test('Test case 01 - Create room', async ({ request }) => {
 });
 
 test('Test case 02 - Get all roomposts - v2', async ({ request }) => {
-    const clientsResponse = await request.get(`${process.env.BASE_URL}/api/rooms`, {
+    const roomResponse = await request.get(`${process.env.BASE_URL}/api/rooms`, {
       headers: xUserAuth
     });
     const getPosts = await apiHelper.getAllRoomPosts(request);
-    expect(clientsResponse.ok()).toBeTruthy();
+    expect(roomResponse.ok()).toBeTruthy();
 
     // To see the data 
-    const roomData = await clientsResponse.json(); // Hämta JSON-data
+    const roomData = await roomResponse.json(); 
     console.log(roomData);
 
   });
+  test('Test case 03 - Get all clients -', async ({ request }) => {
+    const clientsResponse = await request.get(`${process.env.BASE_URL}/api/clients`, {
+      headers: xUserAuth
+    });
+    const getClients = await apiHelper.getAllClients(request);
+    expect(clientsResponse.ok()).toBeTruthy();
+
+    // To see the data 
+    const clientData = await clientsResponse.json(); 
+    console.log(clientData);
+
+  });
+  test('Test case 04 - Create client', async ({ request }) => {
+    const clientdata = generateNewClient();
+    console.log('client data to send:', JSON.stringify(clientdata, null, 2));
+    const createclientResponse = await request.post(`${BASE_URL}/api/client/new`,{
+      headers: xUserAuth,
+      data:clientdata
+  });
+      console.log(`${BASE_URL}/api/client/new`);
+      console.log(`Response status: ${createclientResponse.status()}`);
+      const responseText = await createclientResponse.text();
+      console.log(`Response body: ${responseText}`);
+  
+    // Verify that a client was added
+      expect(createclientResponse.status()).toBe(200);
+      const clientBody = await createclientResponse.json();
+      console.log(clientBody);
+  });
+
+  test('Test case 05 - Delete Client with Id ', async ({ request }) => {
+    const clientsResponse = await request.get(`${process.env.BASE_URL}/api/clients`, {
+      headers: xUserAuth
+    });
+      const getClients = await apiHelper.getAllClients(request);
+      expect(clientsResponse.ok()).toBeTruthy();
+
+      console.log(`Response status: ${clientsResponse.status()}`);
+      console.log(getClients);
+      
+      const allClients = await getClients.json();
+      console.log(allClients);
+      const lastButOneID = allClients[allClients.length - 2].id;
+  
+     // Delete request
+      const deleteRequest = await apiHelper.deleteClient(request, lastButOneID);
+      expect(deleteRequest.ok()).toBeTruthy();
+  
+    //   // GET by ID and verify status as 404
+      const getClientById = await apiHelper.getClientByID(request, lastButOneID);
+      expect(getClientById.status()).toBe(404);
 });
 
-//  Testcase 03 - get all clients - get
-//  Testcase 04 - create clients -post
-//  Testcase 05 - delete client - delete
+// Testcase 06 - create bill - post
+test('Test case 06 - Create bills', async ({ request }) => {
+  const billdata = generateNewBill();
+  console.log('client data to send:', JSON.stringify(billdata, null, 2));
+  const createbillResponse = await request.post(`${BASE_URL}/api/bill/new`,{
+    headers: xUserAuth,
+    data:billdata
+});
+    console.log(`${BASE_URL}/api/client/new`);
+    console.log(`Response status: ${createbillResponse.status()}`);
+    const responseText = await createbillResponse.text();
+    console.log(`Response body: ${responseText}`);
+
+  // Verify that a client was added
+    expect(createbillResponse.status()).toBe(200);
+    const clientBill = await createbillResponse.json();
+    console.log(clientBill);
+
+})
+
+
+
+
+//  Testcase 07 - update a bill - put
+// Testcase 08 - get all reservation - get
+test('Test case 03 - Get reservation -', async ({ request }) => {
+  const clientsResponse = await request.get(`${process.env.BASE_URL}/api/reservations`, {
+    headers: xUserAuth
+  });
+  const getReservations = await apiHelper.getAllClients(request);
+  expect(clientsResponse.ok()).toBeTruthy();
+
+  // To see the data 
+  const clientData = await clientsResponse.json(); 
+  console.log(clientData);
+
+});
+
+
+// Testcase 09 - update a reservation - put
+// Testcase 10 - delete a reservation - delete
+
+
+
+});
+
+
+
 // Testcase 06 - create bill - post
 //  Testcase 07 - update a bill - put
 // Testcase 08 - get all reservation - get
