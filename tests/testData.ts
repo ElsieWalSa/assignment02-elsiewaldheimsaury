@@ -29,8 +29,7 @@ export function generateTelephoneNumber() {
 
     export const generateNewBill = () => {
         return {
-            clientname: faker.person.fullName(),
-            clientemail: faker.internet.email(),
-            clientphonenumber:generateTelephoneNumber(),
+        billvalue: faker.number.int({ min: 10, max: 1000000000 }),
+        billclick: faker.datatype.boolean(0.5),
         };
-        }
+    }
