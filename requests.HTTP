@@ -1,0 +1,83 @@
+### /Login in
+POST http://localhost:3000/api/login
+Content-Type: application/json
+
+{
+    "username": "tester01", 
+    "password": "GteteqbQQgSr88SwNExUQv2ydb7xuf8c"
+
+}
+
+#### Get all clients
+GET http://localhost:3000/api/clients
+Content-Type: application/json
+x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
+
+
+### create client
+POST http://localhost:3000/api/clients
+Content-Type: application/json
+x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
+
+{     
+    "name": "Test Testsson",
+    "email": "testsson@example.com",
+    "telephone": "070 000 1111"
+}
+
+### Delete clients by ID
+DELETE http://localhost:3000/api/clients/2
+Content-Type: application/json
+x-user-auth:{"username":"tester01","token": "token": "56b906cb5a42a6b09427528d4b8fead4"}
+
+### Get all rooms
+GET http://localhost:3000/api/rooms
+Content-Type: application/json
+x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
+
+### Create room
+POST http://localhost:3000/api/rooms
+Content-Type: application/json
+x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
+
+{
+"category": "double",
+        "floor": 3,
+        "number": 112,
+        "available": true,
+        "price": 50,
+        "features": [
+            "balcony",
+            
+        ]
+}
+
+### Get all bills
+GET http://localhost:3000/api/bills
+Content-Type: application/json
+x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
+
+### Create bill
+GET http://localhost:3000/api/bills
+Content-Type: application/json
+x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
+
+{"value":4500,"paid":false}
+### Update a bill
+PUT  http://localhost:3000/api/bills
+Content-Type: application/json
+x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
+{"value":3,"paid":false}
+
+
+### Get all reservations 
+GET http://localhost:3000/api/reservations
+Content-Type: application/json
+x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
+
+
+### Delete a reservation
+GET http://localhost:3000/api/reservations/2
+Content-Type: application/json
+x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
+
