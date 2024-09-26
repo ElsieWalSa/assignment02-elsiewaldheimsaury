@@ -2,7 +2,7 @@ import { test, expect, request } from '@playwright/test';
 import { APIHelper } from './APIHelpers';
 import { generateNewRoom, generateNewClient, generateNewBill } from './testData';
 import dotenv from 'dotenv';
-import { id_ID } from '@faker-js/faker';
+
 require('dotenv').config();
 dotenv.config();
 

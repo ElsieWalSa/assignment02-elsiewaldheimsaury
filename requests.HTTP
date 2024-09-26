@@ -1,83 +1,72 @@
-### /Login in
-POST http://localhost:3000/api/login
+### /Get all cars 1
+GET  http://localhost:9090/api/v1/allcars
+
+#### Get all orders 2
+GET http://localhost:9090/api/v1/orders
+
+### 3post orders custom-controller - the customer dont have any orders
+POST http://localhost:9090/api/v1/myorders/
+
+Content-Type: application/json
+{
+  "id": 3
+}
+
+### 4Get all customers
+GET http://localhost:9090/api/v1/customers
+
+### 5Delete customers by ID
+DELETE http://localhost:9090/api/v1/deletecustomer
+
+
+Content-Type: application/json
+{
+  "id": 3
+}
+
+### 6Add customer
+POST http://localhost:9090/api/v1/addcustomer
 Content-Type: application/json
 
 {
-    "username": "tester01", 
-    "password": "GteteqbQQgSr88SwNExUQv2ydb7xuf8c"
-
+  "username": "string",
+  "name": "string",
+  "address": "string",
+  "email": "string",
+  "phoneNumber": "string"
 }
 
-#### Get all clients
-GET http://localhost:3000/api/clients
+### 7Cancel orders
+PUT http://localhost:9090/api/v1/cancelorder
 Content-Type: application/json
-x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
-
-
-### create client
-POST http://localhost:3000/api/clients
-Content-Type: application/json
-x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
-
-{     
-    "name": "Test Testsson",
-    "email": "testsson@example.com",
-    "telephone": "070 000 1111"
-}
-
-### Delete clients by ID
-DELETE http://localhost:3000/api/clients/2
-Content-Type: application/json
-x-user-auth:{"username":"tester01","token": "token": "56b906cb5a42a6b09427528d4b8fead4"}
-
-### Get all rooms
-GET http://localhost:3000/api/rooms
-Content-Type: application/json
-x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
-
-### Create room
-POST http://localhost:3000/api/rooms
-Content-Type: application/json
-x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
 
 {
-"category": "double",
-        "floor": 3,
-        "number": 112,
-        "available": true,
-        "price": 50,
-        "features": [
-            "balcony",
-            
-        ]
+  "bookingId": 1
 }
 
-### Get all bills
-GET http://localhost:3000/api/bills
+
+### 8Update a order
+POST  http://localhost:9090/api/v1/myorders
 Content-Type: application/json
-x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
 
-### Create bill
-GET http://localhost:3000/api/bills
+{
+  "id": 1
+}
+### 9 Customer see cars that is not booked
+GET   http://localhost:9090/api/v1/cars
+
+
+### 10 Update car 
+GET http://localhost:9090/api/v1/updatecar
 Content-Type: application/json
-x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
-
-{"value":4500,"paid":false}
-### Update a bill
-PUT  http://localhost:3000/api/bills
-Content-Type: application/json
-x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
-{"value":3,"paid":false}
-
-
-### Get all reservations 
-GET http://localhost:3000/api/reservations
-Content-Type: application/json
-x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
+{
+  "id": 1,
+  "pricePerDay": 0,
+  "fabric": "string",
+  "model": "string",
+  "registrationNumber": "string",
+  "isBooked": true
+}
 
 
-### Delete a reservation
-GET http://localhost:3000/api/reservations/2
-Content-Type: application/json
-x-user-auth:{"username":"tester01","token": "56b906cb5a42a6b09427528d4b8fead4"}
 
