@@ -24,10 +24,10 @@ export class APIHelper{
         // console.log(response);
         return response;
     }
-}
 
+    // GET ALL ORDERS
     async getallOrdersV1(request: APIRequestContext) {
-    const response = await request.get(`${this.baseUrl}/allcars`, {
+    const response = await request.get(`${this.baseUrl}/orders`, {
         headers: {
             'Content-Type': 'application/json',
         }
@@ -35,6 +35,31 @@ export class APIHelper{
     // console.log(response);
     return response;
 }
+// GET ALL CUSTOMERS
+    async getallCustomersV1(request: APIRequestContext) {
+    const response = await request.get(`${this.baseUrl}/customers`, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+    // console.log(response);
+    return response;
+}
+// GET CUSTOMERS CARS
+async getallCustomersCarsV1(request: APIRequestContext) {
+    const response = await request.get(`${this.baseUrl}/cars`, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+    // console.log(response);
+    return response;
+}
+
+
+
+}
+
 
     
 

@@ -32,14 +32,24 @@ test.describe('Test suite with API', () => {
   }); 
 
     test('Test case 02 - Get all orders', async ({ request }) => {
-   
-  
+      const getallorders = await apiHelper.getallOrdersV1(request)
+      expect (getallorders.status()).toBe(200);
+
+      const allorders = await getallorders.json();
+      console.log(allorders);
+
+    
 });
 test('Test case 03 - Put -uppdate myorders via ID', async ({ request }) => {
    
   
 });
 test('Test case 04 - Get all customers', async ({ request }) => {
+  const getallcustomer = await apiHelper.getallCustomersV1(request)
+      expect (getallcustomer.status()).toBe(200);
+
+      const allorders = await getallcustomer.json();
+      console.log(allorders);
    
   
 });
@@ -61,6 +71,11 @@ test('Test case 08 - post -update myorders by id ', async ({ request }) => {
   
 });
 test('Test case 09 - Get -customers can see which car is not booked ', async ({ request }) => {
+  const getallcustomerscars = await apiHelper.getallCustomersCarsV1(request)
+  expect (getallcustomerscars.status()).toBe(200);
+
+  const allorders = await getallcustomerscars.json();
+  console.log(allorders);
    
   
 });
