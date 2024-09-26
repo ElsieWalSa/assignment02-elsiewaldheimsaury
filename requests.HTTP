@@ -57,8 +57,9 @@ GET   http://localhost:9090/api/v1/cars
 
 
 ### 10 Update car 
-GET http://localhost:9090/api/v1/updatecar
+PUT http://localhost:9090/api/v1/updatecar
 Content-Type: application/json
+
 {
   "id": 1,
   "pricePerDay": 0,

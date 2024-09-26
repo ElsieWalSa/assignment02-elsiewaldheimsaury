@@ -1,24 +1,42 @@
 import { APIRequestContext } from "@playwright/test";
 import { generateNewCar, generateNewCustomer } from "./testData";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export class APIHelper{
     private baseUrl: string;
 
-    constructor(baseUrl: string){
-        this.baseUrl = baseUrl;
+    constructor() {
+        this.baseUrl = process.env.BASE_URL ?? "";
+        // console.log('BASE_URL:', this.baseUrl);
+
     }
 
     //POST, GET, PUT, DELETE
-    // GET ALL ROOMS
-    async getCallCarsV1(request: APIRequestContext) {
+    // GET ALL CARS
+    async getallCarsV1(request: APIRequestContext) {
         const response = await request.get(`${this.baseUrl}/allcars`, {
             headers: {
                 'Content-Type': 'application/json',
             }
         });
+        // console.log(response);
         return response;
     }
 }
+
+    async getallOrdersV1(request: APIRequestContext) {
+    const response = await request.get(`${this.baseUrl}/allcars`, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+    // console.log(response);
+    return response;
+}
+
+    
 
     // // async getByID(request: APIRequestContext, postId: number) {
     // //     const response = await request.get(`${this.baseUrl}/posts/${postId}`);
@@ -123,7 +141,7 @@ export class APIHelper{
     // }
 
 
-}
+// }
 
 
 

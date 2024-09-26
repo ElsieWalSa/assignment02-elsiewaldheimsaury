@@ -1,34 +1,71 @@
-import { test, expect, request } from '@playwright/test';
-import { APIHelper } from './APIHelpers';
+import { test, expect, APIRequest } from '@playwright/test';
 import { generateNewCar } from './testData';
+import { APIHelper } from './APIHelpers';
 import dotenv from 'dotenv';
 
 require('dotenv').config();
 dotenv.config();
 
-const BASE_URL = process.env.BASE_URL;
+// const BASE_URL = process.env.BASE_URL;
+// if (!BASE_URL) {
+//   throw new Error('BASE_URL is not defined');
+// }
 let apiHelper: APIHelper;
 
 test.describe('Test suite with API', () => {
 
-  test.beforeAll(async () => {
-      apiHelper = new APIHelper(BASE_URL ?? ""); 
-      console.log(`Base URL is set to: ${BASE_URL}`);
   });
+
+  test.beforeEach(async () => {
+    apiHelper = new APIHelper(); 
 });
 
+
   test('Test case 01 - Get all cars', async ({ request }) => {
-    const getallcars = await apiHelper.getCallCarsV1(request)
+    const getallcars = await apiHelper.getallCarsV1(request)
+
     expect (getallcars.status()).toBe(200);
 
     // to see all the cars
     const allCars = await getallcars.json();
     console.log(allCars);
+  }); 
 
+    test('Test case 02 - Get all orders', async ({ request }) => {
+   
+  
+});
+test('Test case 03 - Put -uppdate myorders via ID', async ({ request }) => {
+   
+  
+});
+test('Test case 04 - Get all customers', async ({ request }) => {
+   
+  
+});
+test('Test case 05 - Delete customers', async ({ request }) => {
+   
+  
+});
 
-    // const getPosts = await apiHelper.getAllRoomPosts(request);
-//     expect(roomResponse.ok()).toBeTruthy();
-
+test('Test case 06 - post -add customers', async ({ request }) => {
+   
+  
+});
+test('Test case 07 - put -cancel orders by id ', async ({ request }) => {
+   
+  
+});
+test('Test case 08 - post -update myorders by id ', async ({ request }) => {
+   
+  
+});
+test('Test case 09 - Get -customers can see which car is not booked ', async ({ request }) => {
+   
+  
+});
+test('Test case 10 - Put- update car', async ({ request }) => {
+   
   
 });
   
@@ -123,8 +160,7 @@ test.describe('Test suite with API', () => {
 //       // Sen delete to erase the second but last client
 //       const deleteRequest = await apiHelper.deleteClient(request, lastButOneID, xUserAuth.token);
 //       console.log('denna tar jag bort',deleteRequest);
-//       expect(deleteRequest.ok()).toBeTruthy();
-//       console.log(`Deleted client with ID: ${lastButOneID}`);
+
 
 //       const getClientById = await apiHelper.getClientByID(request, lastButOneID);
 //       expect(getClientById.status()).toBe(404); // Kontrollera att klienten inte längre finns
