@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { features } from "process";
 
-export const generateNewCar = () => {
+export const generateNewCar= () => {
     return {
         carpriceperday: faker.number.int({min:249, max:10000}),
         carmodel : faker.vehicle.model(), 
@@ -28,9 +28,9 @@ export function generateTelephoneNumber() {
     return `${areaCode}-${firstPart} ${secondPart} ${thirdPart}`;
     }
 
-    export const generateNewBill = () => {
+    export const generateID = () => {
         return {
-        billvalue: faker.number.int({ min: 10, max: 1000000000 }),
-        billclick: faker.datatype.boolean(0.5),
+        Idvalue: faker.number.int({ min: 1, max: 10}),
+        
         };
     }

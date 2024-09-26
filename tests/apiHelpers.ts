@@ -56,6 +56,48 @@ async getallCustomersCarsV1(request: APIRequestContext) {
     return response;
 }
 
+// ADD CUSTOMER
+async postAddCustomerV1(request: APIRequestContext, generateNewCustomer) {
+    console.log(generateNewCustomer);
+    const response = await request.post(`${this.baseUrl}/addcustomer`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        data: generateNewCustomer 
+    
+    });
+
+    return response;
+}
+
+// ADD CARS
+async postAddCarsV1(request: APIRequestContext, generateNewCar) {
+    console.log(generateNewCar);
+    const response = await request.post(`${this.baseUrl}/addcar`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        data: generateNewCar 
+    
+    });
+
+    return response;
+}
+
+// Delete customer by ID
+async deleteCustomerV1(request: APIRequestContext, generateID) {
+    
+    const response = await request.delete(`${this.baseUrl}/deletecustomer`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        data: { 'id' : generateID }
+    
+    });
+
+    return response;
+}
+
 
 
 }

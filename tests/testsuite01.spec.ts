@@ -1,5 +1,5 @@
 import { test, expect, APIRequest } from '@playwright/test';
-import { generateNewCar } from './testData';
+import { generateID, generateNewCar, generateNewCustomer } from './testData';
 import { APIHelper } from './APIHelpers';
 import dotenv from 'dotenv';
 
@@ -53,14 +53,34 @@ test('Test case 04 - Get all customers', async ({ request }) => {
    
   
 });
-test('Test case 05 - Delete customers', async ({ request }) => {
-   
-  
+test('Test case 05 - Create and delete customer', async ({ request }) => {
+  const createCustomerResponse = await apiHelper.getallCustomersV1(request)
+  expect (createCustomerResponse.status()).toBe(200);
+
+  const customers = (await createCustomerResponse.json());
+  const lastButOneID =customers[customers.length - 2].id;
+  console.log(lastButOneID);
+
+  // delete request
+  const deletecustomer = await apiHelper.deleteCustomerV1(request, lastButOneID);
+  console.log(deletecustomer);
+  expect(deletecustomer.ok()).toBeTruthy(); 
+
+
+  // Check that customer has been remowed
+  const createCustomerResponse2 = await apiHelper.getallCustomersV1(request)
+  const customers2 = (await createCustomerResponse2.json());
+
+  const customerExists = customers2.some((x) => x.id === lastButOneID);
+  expect(customerExists).toBeFalsy();
+    
 });
 
-test('Test case 06 - post -add customers', async ({ request }) => {
-   
-  
+test('Test case 06 - post -create car', async ({ request }) => {
+  const cardata = generateNewCar();
+  const createCarResponse = await apiHelper.postAddCarsV1(request,cardata)
+  expect (createCarResponse.status()).toBe(201);
+     
 });
 test('Test case 07 - put -cancel orders by id ', async ({ request }) => {
    
