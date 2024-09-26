@@ -2,6 +2,7 @@ import { test, expect, request } from '@playwright/test';
 import { APIHelper } from './APIHelpers';
 import { generateNewRoom, generateNewClient, generateNewBill } from './testData';
 import dotenv from 'dotenv';
+import { id_ID } from '@faker-js/faker';
 require('dotenv').config();
 dotenv.config();
 
@@ -31,7 +32,7 @@ test.describe('Test suite backend V2', () => {
       'username': `${process.env.LOGIN_USERNAME}`, 
       'password': `${process.env.LOGIN_PASSWORD}`
     };
-    console.log('för att få',loginCredentials);
+    // console.log('för att få',loginCredentials);
   
     // Skicka inloggningsbegäran
     const context = await request.newContext();
@@ -89,14 +90,14 @@ test('Test case 02 - Get all roomposts - v2', async ({ request }) => {
 
   });
   test('Test case 03 - Get all clients -', async ({ request }) => {
-    const clientsResponse = await request.get(`${process.env.BASE_URL}/api/clients`, {
-      headers: xUserAuth
-    });
+   // const clientsResponse = await request.get(`${process.env.BASE_URL}/api/clients`, {
+   //   headers: xUserAuth
+   // });
     const getClients = await apiHelper.getAllClients(request);
-    expect(clientsResponse.ok()).toBeTruthy();
+    expect(getClients.ok()).toBeTruthy();
 
     // To see the data 
-    const clientData = await clientsResponse.json(); 
+    const clientData = await getClients.json(); 
     console.log(clientData);
 
   });
@@ -116,29 +117,71 @@ test('Test case 02 - Get all roomposts - v2', async ({ request }) => {
       expect(createclientResponse.status()).toBe(200);
       const clientBody = await createclientResponse.json();
       console.log(clientBody);
+      
   });
-
-  test('Test case 05 - Delete Client with Id ', async ({ request }) => {
+  test('Test case 05 - get Client with Id ', async ({ request }) => {
     const clientsResponse = await request.get(`${process.env.BASE_URL}/api/clients`, {
       headers: xUserAuth
     });
-      const getClients = await apiHelper.getAllClients(request);
-      expect(clientsResponse.ok()).toBeTruthy();
+    const clientID = 2
+    const getclientByID = await apiHelper.getClientByID(request,clientID);
+    expect(clientsResponse.ok()).toBeTruthy();
+    console.log('this is client number 2', getclientByID)
+    
+  });
 
-      console.log(`Response status: ${clientsResponse.status()}`);
-      console.log(getClients);
-      
-      const allClients = await getClients.json();
-      console.log(allClients);
-      const lastButOneID = allClients[allClients.length - 2].id;
-  
-     // Delete request
-      const deleteRequest = await apiHelper.deleteClient(request, lastButOneID);
+  test('Test case 06 - Delete Client with Id ', async ({ request }) => {
+    const clientsResponse = await request.get(`${process.env.BASE_URL}/api/clients`, {
+      headers: xUserAuth
+    });
+
+    const getClients = await apiHelper.getAllClients(request);
+    expect(clientsResponse.ok()).toBeTruthy();
+
+    // To see the data 
+    const clientData = await clientsResponse.json(); 
+    console.log(clientData);
+
+    // See if there a more than 2 clients
+    if (clientData.length >= 2) {
+      const lastButOneID = clientData[clientData.length - 2].id;
+
+      // Sen delete to erase the second but last client
+      const deleteRequest = await apiHelper.deleteClient(request, lastButOneID, xUserAuth.token);
+      console.log('denna tar jag bort',deleteRequest);
       expect(deleteRequest.ok()).toBeTruthy();
-  
-    //   // GET by ID and verify status as 404
+      console.log(`Deleted client with ID: ${lastButOneID}`);
+
       const getClientById = await apiHelper.getClientByID(request, lastButOneID);
-      expect(getClientById.status()).toBe(404);
+      expect(getClientById.status()).toBe(404); // Kontrollera att klienten inte längre finns
+  } else {
+      console.log('Det finns inte tillräckligt många klienter att radera.');
+  }
+
+    
+
+    
+  
+      // const getClients = await apiHelper.getAllClients(request);
+      // expect(clientsResponse.ok()).toBeTruthy();
+
+      // console.log(`Response status: ${clientsResponse.status()}`);
+      // console.log(getClients);
+      
+      
+      
+      
+    //   const allClients = await getClients.json();
+    //   console.log(allClients);
+    //   const lastButOneID = allClients[allClients.length - 2].id;
+  
+    //  // Delete request
+    //   const deleteRequest = await apiHelper.deleteClient(request, lastButOneID);
+    //   expect(deleteRequest.ok()).toBeTruthy();
+  
+    // //   // GET by ID and verify status as 404
+    //   const getClientById = await apiHelper.getClientByID(request, lastButOneID);
+    //   expect(getClientById.status()).toBe(404);
 });
 
 // Testcase 06 - create bill - post
@@ -149,7 +192,7 @@ test('Test case 06 - Create bills', async ({ request }) => {
     headers: xUserAuth,
     data:billdata
 });
-    console.log(`${BASE_URL}/api/client/new`);
+    console.log(`${BASE_URL}/api/bill/new`);
     console.log(`Response status: ${createbillResponse.status()}`);
     const responseText = await createbillResponse.text();
     console.log(`Response body: ${responseText}`);

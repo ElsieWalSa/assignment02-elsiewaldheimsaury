@@ -62,15 +62,40 @@ export class APIHelper{
     }
 
         // GET CLIENT BY ID
-    async getClientByID(request: APIRequestContext, id: string) {
-        const response = await request.get(`${this.baseUrl}/clients/${id}`);
-        return response;
+    async getClientByID(request: APIRequestContext, id: number, token: string) {
+        const response = await request.get(`${this.baseUrl}/clients/${id}`, {
+            headers: {
+                'x-user-auth': `{ "username": "tester01","token": "${token}"}`,
+                'Content-Type': 'application/json', 
+            },
+                    
+        });
+        if (!response.ok()) {
+            console.log(`Error: ${response.status()} - ${response.statusText()}`);
+            throw new Error(`Failed to fetch client by ID: ${response.status()}`);
+        }
+        const clientData = await response.json();
+        return clientData;
+
     }
 
     // DELETE CLIENT
-    async deleteClient(request: APIRequestContext, id: string){
-        const response = await request.delete(`${this.baseUrl}/clients/${id}`);
+    async deleteClient(request: APIRequestContext, id: number, token: string, ){
+        const response = await request.delete(`${this.baseUrl}/clients/${id}`, {
+            headers: {
+                'x-user-auth': `{ "username": "tester01","token": "${token}"}`,
+                'Content-Type': 'application/json', 
+    
+            },
+                    
+        });
+
+        console.log(`DELETE Response status: ${response.status()}`);
+        const responseText = await response.text();
+        console.log(`DELETE Response body: ${responseText}`);
+        
         return response;
+      
     }
     // CREATE BILL
     async createbill(request: APIRequestContext, generateNewBill: object) {
