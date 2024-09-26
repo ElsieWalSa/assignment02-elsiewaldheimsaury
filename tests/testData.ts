@@ -1,21 +1,22 @@
 import { faker } from "@faker-js/faker";
 import { features } from "process";
 
-export const generateNewRoom = () => {
+export const generateNewCar = () => {
     return {
-        category: faker.helpers.arrayElement(['Double', 'Single', 'Twin']),
-        floor:faker.number.int({ min: 1, max: 5 }),
-        number: faker.number.int({ min: 1, max: 10 }),
-        available: faker.datatype.boolean(0.5),
-        price: faker.number.int({min:100, max:10000}),
-        features:faker.helpers.arrayElements(['Balcony', 'Ensuite', 'Sea View', 'Penthouse'])
+        carpriceperday: faker.number.int({min:249, max:10000}),
+        carmodel : faker.vehicle.model(), 
+        carfabric : faker.vehicle.type(),
+        carregestrationNumber : faker.vehicle.vrm(),
+        carisbooked : faker.datatype.boolean(0.5),
     }
 }
-export const generateNewClient = () => {
+export const generateNewCustomer= () => {
     return {
-        clientname: faker.person.fullName(),
-        clientemail: faker.internet.email(),
-        clientphonenumber:generateTelephoneNumber(),
+        customerusername: faker.internet.userName(),
+        customerufullname: faker.person.fullName(),
+        customeradress: faker.location.streetAddress(),
+        customeremail: faker.internet.email(),
+        customerphonenumber:generateTelephoneNumber(),
     };
 }
 export function generateTelephoneNumber() {
