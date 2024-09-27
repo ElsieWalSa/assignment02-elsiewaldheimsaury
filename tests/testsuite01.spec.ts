@@ -49,7 +49,7 @@ test('Test case 03 - Put -uppdate customer', async ({ request }) => {
         const secondFirstID = allorders[2].id;
         console.log(secondFirstID);
 
-  //  Update last but one customer
+  //  Update second first customer
       const putcustomer = await apiHelper.putCustomerV1(request, secondFirstID);
       console.log(putcustomer);
       expect(putcustomer.status()).toBe(200);
@@ -64,7 +64,7 @@ test('Test case 04 - Get all customers', async ({ request }) => {
       const allorders = await getallcustomer.json();
       console.log(allorders);
    
-  // över 
+  // se över delete 
 });
 test('Test case 05 - Create and delete customer', async ({ request }) => {
   const createCustomerResponse = await apiHelper.getallCustomersV1(request)
@@ -78,7 +78,6 @@ test('Test case 05 - Create and delete customer', async ({ request }) => {
   const deletecustomer = await apiHelper.deleteCustomerV1(request, lastButOneID);
   console.log(deletecustomer);
   expect(deletecustomer.ok()).toBeTruthy(); 
-
 
   // Check that customer has been remowed
   const createCustomerResponse2 = await apiHelper.getallCustomersV1(request)
@@ -99,12 +98,11 @@ test('Test case 07 - delete -cancel orders ', async ({ request }) => {
    
   
 });
-test('Test case 08 - post -customer create order by id ', async ({ request }) => {
-  const myorders = generateID();
-  const createMyOrderResponse = await apiHelper.postMyOrdersV1(request, myorders)
-  expect (createMyOrderResponse.status()).toBe(200);
-   
-  
+test('Test case 08 - post -add customer ', async ({ request }) => {
+  const customerdata = generateNewCustomer();
+  const createCustomerResponse3 = await apiHelper.postAddCustomerV1(request,customerdata)
+  expect (createCustomerResponse3.status()).toBe(201)
+    
 });
 test('Test case 09 - Get -customers can see which car is not booked ', async ({ request }) => {
   const getallcustomerscars = await apiHelper.getallCustomersCarsV1(request)
@@ -122,11 +120,11 @@ test('Test case 10 - Put- update car', async ({ request }) => {
       const carorders = await createCarPutResponse.json();
       console.log(carorders);
 
-      // Get the second first customer
+      // Get the second first car
         const secondFirstID = carorders[2].id;
         console.log(secondFirstID);
 
-  //  Update last but one customer
+  //  Update second first car
       const putcar = await apiHelper.putupdatecarV1(request, secondFirstID);
       console.log(putcar);
       expect(putcar.status()).toBe(200);

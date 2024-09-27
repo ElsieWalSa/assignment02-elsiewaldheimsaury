@@ -3,20 +3,19 @@ import { features } from "process";
 
 export const generateNewCar= () => {
     return {
-        carpriceperday: faker.number.int({min:249, max:10000}),
-        carmodel : faker.vehicle.model(), 
-        carfabric : faker.vehicle.type(),
-        carregistrationNumber : faker.vehicle.vrm(),
-        carisbooked : faker.datatype.boolean(0.5),
+        pricePerDay: faker.number.int({min:249, max:10000}),
+        fabric : faker.vehicle.type(),
+        model : faker.vehicle.model(), 
+        registrationNumber : faker.vehicle.vrm(),
     }
 }
 export const generateNewCustomer= () => {
     return {
-        customerusername: faker.internet.userName(),
-        customerufullname: faker.person.fullName(),
-        customeradress: faker.location.streetAddress(),
-        customeremail: faker.internet.email(),
-        customerphonenumber:generateTelephoneNumber(),
+        username: faker.internet.userName(),
+        name: faker.person.fullName(),
+        adress: faker.location.streetAddress(),
+        email: faker.internet.email(),
+        phoneNumber:generateTelephoneNumber(),
     };
 }
 export function generateTelephoneNumber() {
