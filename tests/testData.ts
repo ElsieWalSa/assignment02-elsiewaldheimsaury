@@ -30,7 +30,7 @@ export function generateTelephoneNumber() {
 
     export const generateID = () => {
         return {
-        Idvalue: faker.number.int({ min: 1, max: 10}),
+        Idvalue: faker.number.int({ min: 1, max: 50}),
         
         };
     }

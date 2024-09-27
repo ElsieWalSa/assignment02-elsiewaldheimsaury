@@ -97,6 +97,19 @@ async deleteCustomerV1(request: APIRequestContext, generateID) {
 
     return response;
 }
+// Update customer
+async putCustomerV1(request: APIRequestContext, generateNewCustomer) {
+    console.log(generateNewCustomer);
+    const response = await request.put(`${this.baseUrl}/updatecustomer`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        data: generateNewCustomer 
+    
+    });
+
+    return response;
+}
 
 
 

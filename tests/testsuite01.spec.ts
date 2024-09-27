@@ -40,7 +40,24 @@ test.describe('Test suite with API', () => {
 
     
 });
-test('Test case 03 - Put -uppdate myorders via ID', async ({ request }) => {
+test('Test case 03 - Put -uppdate customer', async ({ request }) => {
+  // Get all customers 
+  const createCustomerPutResponse = await apiHelper.getallCustomersV1(request)
+      expect (createCustomerPutResponse.status()).toBe(200);
+      const allorders = await createCustomerPutResponse.json();
+      console.log(allorders);
+
+  // Get the last but one customer 
+      const customers = (await createCustomerPutResponse.json());
+      const secondFirstID =customers[2].id;
+      console.log(secondFirstID);
+
+  //  Update last but one customer
+      const putcustomer = await apiHelper.putCustomerV1(request, secondFirstID);
+      console.log(putcustomer);
+      expect(putcustomer.status()).toBe(200);
+      const seeallcustomer = putcustomer.json();
+      console.log(seeallcustomer);
    
   
 });
@@ -82,7 +99,7 @@ test('Test case 06 - post -create car', async ({ request }) => {
   expect (createCarResponse.status()).toBe(201);
      
 });
-test('Test case 07 - put -cancel orders by id ', async ({ request }) => {
+test('Test case 07 - delete -cancel orders ', async ({ request }) => {
    
   
 });
