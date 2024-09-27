@@ -138,6 +138,19 @@ async putupdatecarV1(request: APIRequestContext, updateCarId) {
 
     return response;
 }
+// Delete customer by ID
+async deleteCarV1(request: APIRequestContext, generateID) {
+    
+    const response = await request.delete(`${this.baseUrl}/deletecar`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        data: { 'id' : generateID }
+    
+    });
+
+    return response;
+}
 
 
 }
