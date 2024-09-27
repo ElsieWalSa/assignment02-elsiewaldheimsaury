@@ -28,6 +28,17 @@ export function generateTelephoneNumber() {
     return `${areaCode}-${firstPart} ${secondPart} ${thirdPart}`;
     }
 
+    export const updateCustomer= (id) => {
+        return {
+            id:id,
+            username: faker.internet.userName(),
+            fullname: faker.person.fullName(),
+            adress: faker.location.streetAddress(),
+            email: faker.internet.email(),
+            phonenumber:generateTelephoneNumber(),
+        };
+    }
+
     export const generateID = () => {
         return {
         Idvalue: faker.number.int({ min: 1, max: 50}),

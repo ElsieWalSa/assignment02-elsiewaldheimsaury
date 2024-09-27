@@ -1,5 +1,5 @@
 import { test, expect, APIRequest } from '@playwright/test';
-import { generateID, generateNewCar, generateNewCustomer } from './testData';
+import { generateID, generateNewCar, generateNewCustomer, updateCustomer } from './testData';
 import { APIHelper } from './APIHelpers';
 import dotenv from 'dotenv';
 
@@ -20,7 +20,6 @@ test.describe('Test suite with API', () => {
     apiHelper = new APIHelper(); 
 });
 
-
   test('Test case 01 - Get all cars', async ({ request }) => {
     const getallcars = await apiHelper.getallCarsV1(request)
 
@@ -37,8 +36,7 @@ test.describe('Test suite with API', () => {
 
       const allorders = await getallorders.json();
       console.log(allorders);
-
-    
+  
 });
 test('Test case 03 - Put -uppdate customer', async ({ request }) => {
   // Get all customers 
@@ -47,10 +45,9 @@ test('Test case 03 - Put -uppdate customer', async ({ request }) => {
       const allorders = await createCustomerPutResponse.json();
       console.log(allorders);
 
-  // Get the last but one customer 
-      const customers = (await createCustomerPutResponse.json());
-      const secondFirstID =customers[2].id;
-      console.log(secondFirstID);
+      // Get the second first customer
+        const secondFirstID = allorders[2].id;
+        console.log(secondFirstID);
 
   //  Update last but one customer
       const putcustomer = await apiHelper.putCustomerV1(request, secondFirstID);
@@ -59,7 +56,6 @@ test('Test case 03 - Put -uppdate customer', async ({ request }) => {
       const seeallcustomer = putcustomer.json();
       console.log(seeallcustomer);
    
-  
 });
 test('Test case 04 - Get all customers', async ({ request }) => {
   const getallcustomer = await apiHelper.getallCustomersV1(request)
@@ -68,7 +64,7 @@ test('Test case 04 - Get all customers', async ({ request }) => {
       const allorders = await getallcustomer.json();
       console.log(allorders);
    
-  
+  // över 
 });
 test('Test case 05 - Create and delete customer', async ({ request }) => {
   const createCustomerResponse = await apiHelper.getallCustomersV1(request)
@@ -103,7 +99,10 @@ test('Test case 07 - delete -cancel orders ', async ({ request }) => {
    
   
 });
-test('Test case 08 - post -update myorders by id ', async ({ request }) => {
+test('Test case 08 - post -customer create order by id ', async ({ request }) => {
+  const myorders = generateID();
+  const createMyOrderResponse = await apiHelper.postMyOrdersV1(request, myorders)
+  expect (createMyOrderResponse.status()).toBe(200);
    
   
 });

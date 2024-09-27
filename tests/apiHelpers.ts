@@ -1,5 +1,5 @@
 import { APIRequestContext } from "@playwright/test";
-import { generateNewCar, generateNewCustomer } from "./testData";
+import { generateNewCar, generateNewCustomer, updateCustomer } from "./testData";
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -98,13 +98,27 @@ async deleteCustomerV1(request: APIRequestContext, generateID) {
     return response;
 }
 // Update customer
-async putCustomerV1(request: APIRequestContext, generateNewCustomer) {
-    console.log(generateNewCustomer);
+async putCustomerV1(request: APIRequestContext, updateCustomerId) {
+    var data = updateCustomer(updateCustomerId);
+    console.log(data);
     const response = await request.put(`${this.baseUrl}/updatecustomer`, {
         headers: {
             'Content-Type': 'application/json',
         },
-        data: generateNewCustomer 
+        data: data
+    
+    });
+
+    return response;
+}
+async postMyOrdersV1(request: APIRequestContext, generateID) {
+    console.log(generateID);
+    const response = await request.post(`${this.baseUrl}/myorders`, {
+        headers: {
+            'Content-Type': 'application/json',
+            // 'id': 3     
+        },
+        data: { 'id' : generateID } 
     
     });
 
