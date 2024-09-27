@@ -6,7 +6,7 @@ export const generateNewCar= () => {
         carpriceperday: faker.number.int({min:249, max:10000}),
         carmodel : faker.vehicle.model(), 
         carfabric : faker.vehicle.type(),
-        carregestrationNumber : faker.vehicle.vrm(),
+        carregistrationNumber : faker.vehicle.vrm(),
         carisbooked : faker.datatype.boolean(0.5),
     }
 }
@@ -44,4 +44,15 @@ export function generateTelephoneNumber() {
         Idvalue: faker.number.int({ min: 1, max: 50}),
         
         };
+    }
+
+    export const updateCar= (id) => {
+        return {
+            id:id,
+            pricePerDay: faker.number.int({min:249, max:10000}),
+            fabric : faker.vehicle.type(),
+            model : faker.vehicle.model(), 
+            registrationNumber : faker.vehicle.vrm(),
+            isBooked : faker.datatype.boolean(0.5),
+        }
     }

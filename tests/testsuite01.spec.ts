@@ -1,5 +1,5 @@
 import { test, expect, APIRequest } from '@playwright/test';
-import { generateID, generateNewCar, generateNewCustomer, updateCustomer } from './testData';
+import { generateID, generateNewCar, generateNewCustomer, updateCustomer, updateCar } from './testData';
 import { APIHelper } from './APIHelpers';
 import dotenv from 'dotenv';
 
@@ -116,6 +116,22 @@ test('Test case 09 - Get -customers can see which car is not booked ', async ({ 
   
 });
 test('Test case 10 - Put- update car', async ({ request }) => {
+  // Get all cars 
+  const createCarPutResponse = await apiHelper.getallCarsV1(request)
+      expect (createCarPutResponse.status()).toBe(200);
+      const carorders = await createCarPutResponse.json();
+      console.log(carorders);
+
+      // Get the second first customer
+        const secondFirstID = carorders[2].id;
+        console.log(secondFirstID);
+
+  //  Update last but one customer
+      const putcar = await apiHelper.putupdatecarV1(request, secondFirstID);
+      console.log(putcar);
+      expect(putcar.status()).toBe(200);
+      const seeallcars = putcar.json();
+      console.log(seeallcars);
    
   
 });

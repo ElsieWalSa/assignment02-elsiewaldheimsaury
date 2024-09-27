@@ -1,5 +1,5 @@
 import { APIRequestContext } from "@playwright/test";
-import { generateNewCar, generateNewCustomer, updateCustomer } from "./testData";
+import { generateNewCar, generateNewCustomer, updateCustomer, updateCar } from "./testData";
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -124,7 +124,20 @@ async postMyOrdersV1(request: APIRequestContext, generateID) {
 
     return response;
 }
+// Update car
+async putupdatecarV1(request: APIRequestContext, updateCarId) {
+    var data = updateCar(updateCarId);
+    console.log(data);
+    const response = await request.put(`${this.baseUrl}/updatecar`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        data: data
+    
+    });
 
+    return response;
+}
 
 
 }
